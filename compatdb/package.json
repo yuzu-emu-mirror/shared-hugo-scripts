@@ -9,7 +9,7 @@
     "@iarna/toml": "^2.2.5",
     "checkenv": "^1.2.2",
     "fs-extra": "^9.0.1",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.1.1",
     "sync-exec": "^0.6.2",
     "winston": "^3.3.3"
   },
