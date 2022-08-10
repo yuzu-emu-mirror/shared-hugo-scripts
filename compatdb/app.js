@@ -16,7 +16,7 @@ const fsPathHugoBoxart = `${fsPathHugo}/static/images/game/boxart`
 const fsPathHugoIcon = `${fsPathHugo}/static/images/game/icons`
 const fsPathHugoScreenshots = `${fsPathHugo}/static/images/screenshots0`
 const fsPathHugoSavefiles = `${fsPathHugo}/static/savefiles/`
-const fsPathHugoMods = `${fsPathHugo}/mods/`
+const fsPathHugoMods = `${fsPathHugo}/static/mods/`
 
 process.on('unhandledRejection', err => {
   logger.error('Unhandled rejection on process.');
