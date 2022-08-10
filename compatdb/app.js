@@ -16,6 +16,7 @@ const fsPathHugoBoxart = `${fsPathHugo}/static/images/game/boxart`
 const fsPathHugoIcon = `${fsPathHugo}/static/images/game/icons`
 const fsPathHugoScreenshots = `${fsPathHugo}/static/images/screenshots0`
 const fsPathHugoSavefiles = `${fsPathHugo}/static/savefiles/`
+const fsPathHugoMods = `${fsPathHugo}/mods/`
 
 process.on('unhandledRejection', err => {
   logger.error('Unhandled rejection on process.');
@@ -37,7 +38,7 @@ function gitPull(directory, repository) {
 
 async function run() {
   // Make sure the output directories in Hugo exist.
-  [fsPathHugoContent, fsPathHugoBoxart, fsPathHugoIcon, fsPathHugoSavefiles, fsPathHugoScreenshots].forEach(function (path) {
+  [fsPathHugoContent, fsPathHugoBoxart, fsPathHugoIcon, fsPathHugoSavefiles, fsPathHugoScreenshots, fsPathHugoMods].forEach(function (path) {
     if (fs.existsSync(path) == false) {
       logger.info(`Creating Hugo output directory: ${path}`);
       fs.ensureDirSync(path);
@@ -96,6 +97,24 @@ async function run() {
       }
       // END SAVEFILE BLOCK
 
+      // MODS BLOCK
+      let fsPathModsInputGame = `${fsPathCode}/{x.id}/mods/`;
+      let fsPathModsOutputGame = `${fsPathHugoMods}/{x.id}/`;
+      if (fs.existsSync(fsPathModsInputGame)) {
+        // Create the mods directory for each game.
+        if (fs.existsSync(fsPathModsOutputGame) == false) {
+          fs.mkdirSync(fsPathModsOutputGame);
+        }
+        
+        // Copy all the mods into the output folder
+        fs.readdirSync(fsPathModsInputGame).forEach(file => {
+          if (path.extname(file) == '.zip' ) {
+            fs.copySync(`${fsPathModsInputGame}/${file}`,  `${fsPathModsOutputGame}/${file}`);
+          }
+        });
+      }
+      // END MODS BLOCK
+      
       // Copy the screenshots for the game.
       let fsPathScreenshotInputGame = `${fsPathCode}/${x.id}/screenshots/`;
       let fsPathScreenshotOutputGame = `${fsPathHugoScreenshots}/${x.id}/`;
